@@ -42,10 +42,32 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
             { title: 'Duty assessed', type:'text', width:100 },
             { title: 'Reg. no. means of transport', type:'text', width:100 },
             { title: 'Date & time of receipt', type:'text', width:100 },
+            { title: 'Date and time of removal', type:'text', width:100 },
+            { title: 'Quantity cleared', type:'text', width:100 },
+            { title: 'Value', type:'text', width:100 },
+            { title: 'Duty involved', type:'text', width:100 },
+            { title: ' ', type:'text', width:100 },
+
+            { title: 'Purpose of removal', type:'text', width:100 },
+            { title: 'Date & Time', type:'text', width:100 },
+            { title: 'Quantity', type:'text', width:100 },
+            { title: 'Value', type:'text', width:100 },
+            { title: 'Duty', type:'text', width:100 },
+            { title: 'Details of document', type:'text', width:100 },
+            { title: 'Purpose of return', type:'text', width:100 },
+            { title: 'Date & time', type:'text', width:100 },
+            { title: 'Quantity', type:'text', width:100 },
+            { title: 'Value', type:'text', width:100 },
+            { title: 'Duty involved', type:'text', width:100 },
+            { title: 'Details', type:'text', width:100 },
+            { title: 'Quantity', type:'text', width:100 },
+            { title: 'Value', type:'text', width:100 },
+            { title: ' ', type:'text', width:100 }
         ],
         nestedHeaders:[
             [
-                { title:' ',colspan:2 }, { title:'Receipts', colspan:12 }
+                { title:' ',colspan:2 }, { title:'Receipts', colspan:12 }, {title:'Removal of processing', colspan: 4},{title:'Remarks', colspan:1},
+                {title:'Other removals', colspan:6}, {title:'Returns to unit', colspan:6}, {title:'Balance in stock',colspan:2},{title:'Remarks',colspan:1}
             ]
                 
         ]
