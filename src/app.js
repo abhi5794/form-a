@@ -34,6 +34,8 @@ dataExcel = [{ 'BillofEntryNo': 1, 'CustomsStation': 2, 'Code': 3,
 'QuantityRemoval':22,'ValueRemovals':23,'DutyRemovals':24,'DetailsDemovals':25,'PurposeReturns':26,'DateReturns':27,
 'QuantityReturns':28,'ValueReturns':29,'DutyReturns':30,'DetailsReturns':31,'BalanceQuantity':32,'BalanceValue':33,'EndRemarks':34}]
 
+let dataSaved=[]
+
 dataExcelJson = JSON.stringify(dataExcel)
 app.get('', (req,res)=>{
     res.render('index',{
@@ -52,6 +54,9 @@ app.post('/save', async(req,res)=>{
 })
 
 app.get('/pdf', (req,res)=>{
+    if(dataSaved.length===0){
+        res.redirect('/')
+    }
     res.render('pdf',{
         data: dataSaved,
     },(err,html)=>{
