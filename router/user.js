@@ -36,7 +36,6 @@ router.post('/users/me',auth,async(req,res)=>{
 //login
 router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=>{
     try{
-        console.log(req.body)
         const user = await User.findByCredentials(req.body.email,req.body.password)
         const token = await user.generateAuthToken()
         req.app.locals.UserVariable = user
@@ -48,7 +47,7 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         res.redirect('/')
         res.send({user,token})
     }catch(e){
-        res.status(400).send()
+        res.status(400).send('Unable to find user')
     }
 },(error, req, res, next)=>{
     res.status(400).send({error:error})

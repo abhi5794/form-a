@@ -30,9 +30,8 @@ app.use(session({
         secure:true,
         expires: new Date(Date.now()+12*3600000)
     }
-
 }))
-app.use(cookieParser('thisis')) //to parse cookie information //change added 'thisis'
+app.use(cookieParser()) //to parse cookie information
 app.use(express.static(publicDirectoryPath))
 
 const mainRouter = require('../router/main')
