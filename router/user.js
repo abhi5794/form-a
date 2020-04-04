@@ -36,6 +36,7 @@ router.post('/users/me',auth,async(req,res)=>{
 //login
 router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=>{
     try{
+        console.log(req.body)
         const user = await User.findByCredentials(req.body.email,req.body.password)
         const token = await user.generateAuthToken()
         req.app.locals.UserVariable = user
