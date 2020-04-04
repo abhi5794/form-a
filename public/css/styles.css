@@ -55,3 +55,13 @@ button {
     color: white;
     padding: 8px;
 }
+
+/* for removing footer */
+@page { 
+    size: auto;
+    margin: 5mm;
+}
+
+html {
+    margin: 0mm;
+}

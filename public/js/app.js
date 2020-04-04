@@ -1,3 +1,5 @@
+
+
 function getJson(url){
     return $.ajax({
         type:'GET',
@@ -85,4 +87,15 @@ function readData(){
         contentType:"application/json"
     })
     location.replace('/pdf')
+}
+
+function Logout(){
+    $.ajax({
+        type:"POST",
+        url:"/users/logout",
+        success : ()=>{
+            console.log('success')
+        },
+    })
+    location.replace('/users/login')
 }
