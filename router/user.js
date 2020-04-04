@@ -44,10 +44,10 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         //     httpOnly:true, //for security, can be only access via web server
         //     expires: new Date(Date.now()+12*3600000)
         // })
-        //res.redirect('/')
+        res.redirect('/')
         res.send({user,token})
     }catch(e){
-        res.status(400).send(req.body.email,req.body.password)
+        res.status(400).send()
     }
 },(error, req, res, next)=>{
     res.status(400).send({error:error})
