@@ -13,10 +13,11 @@ router.post('/users', async(req,res)=>{
     try{
         await user.save()
         const token = await user.generateAuthToken()
-        res.cookie('Authorization','Bearer '+token,{
-            httpOnly:true, //for security, can be only access via web server
-            expires: new Date(Date.now()+12*3600000)
-        })
+        res.cookie('Authorization','Bearer '+token)
+        // res.cookie('Authorization','Bearer '+token,{
+        //     httpOnly:true, //for security, can be only access via web server
+        //     expires: new Date(Date.now()+12*3600000)
+        // })
         res.status(201).send({user,token})
     }catch(e){
         res.status(400).send(e)
@@ -38,10 +39,11 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         const user = await User.findByCredentials(req.body.email,req.body.password)
         const token = await user.generateAuthToken()
         req.app.locals.UserVariable = user
-        res.cookie('Authorization','Bearer '+token,{
-            httpOnly:true, //for security, can be only access via web server
-            expires: new Date(Date.now()+12*3600000)
-        })
+        res.cookie('Authorization','Bearer '+token)
+        // res.cookie('Authorization','Bearer '+token,{
+        //     httpOnly:true, //for security, can be only access via web server
+        //     expires: new Date(Date.now()+12*3600000)
+        // })
         res.redirect('/')
         res.send({user,token})
     }catch(e){

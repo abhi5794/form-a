@@ -3,6 +3,7 @@ const express = require('express')
 const hbs = require('hbs') // this is for using partials
 bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
 
 require('../db/mongoose')
 
@@ -20,6 +21,20 @@ hbs.registerPartials(partialsPath)
 
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
+app.set('trust proxy', 1)
+app.use(session({
+    secret: 'some',
+    key:'sid',
+    resave:'false',
+    saveUninitialized:true,
+    proxy:true,
+    cookie:{
+        secure:true,
+        httpOnly:true, //for security, can be only access via web server
+        expires: new Date(Date.now()+12*3600000)
+    }
+
+}))
 app.use(cookieParser()) //to parse cookie information
 app.use(express.static(publicDirectoryPath))
 
