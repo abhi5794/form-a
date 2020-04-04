@@ -24,11 +24,8 @@ app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL enco
 app.set('trust proxy', 1)
 app.use(session({
     secret: 'some',
-    secureProxy:true,
-    key:'sid',
     resave:'false',
     saveUninitialized:true,
-    proxy:true,
     cookie:{
         secure:true,
         httpOnly:true, //for security, can be only access via web server
