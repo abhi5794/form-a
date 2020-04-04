@@ -21,24 +21,18 @@ hbs.registerPartials(partialsPath)
 
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
-
-const isDevMode = process.env.NODE_ENV === 'development'
-
-if(!isDevMode){
-    app.set('trust proxy', 1)
-}
-
+app.set('trust proxy', 1)
 app.use(session({
     secret:'thisis',
-    proxy:true,
     resave:'false',
     saveUninitialized:true,
     cookie:{
-        secure:!isDevMode,
+        secure:true,
         expires: new Date(Date.now()+12*3600000)
     }
+
 }))
-app.use(cookieParser()) //to parse cookie information
+app.use(cookieParser('thisis')) //to parse cookie information //change added 'thisis'
 app.use(express.static(publicDirectoryPath))
 
 const mainRouter = require('../router/main')

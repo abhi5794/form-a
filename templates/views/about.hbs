@@ -3,13 +3,23 @@
 <html>
 
 <head>
-    <title>About</title>
+    <title>Weather</title>
     <link rel="stylesheet" href="/css/styles.css">
+    
 <body>
     <div class="main-content">
-        {{>header}}
+        <p>Use this site for weather</p>
+        <form>
+            <input id="f1" placeholder="Location">
+            <input id="f2" placeholder="Password">
+            <button>Search</button>
+        </form>
+        <p id="message-1"></p>
+        <p id="message-2"></p>
     </div>
+    
     {{>footer}}
+    <script src="/js/test.js"></script>
 </body>
 
 </head>
