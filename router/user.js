@@ -47,7 +47,7 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         //res.redirect('/')
         res.send({user,token})
     }catch(e){
-        res.status(400).send('Ended in 404')
+        res.status(400).send(user)
     }
 },(error, req, res, next)=>{
     res.status(400).send({error:error})
