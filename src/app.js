@@ -21,17 +21,22 @@ hbs.registerPartials(partialsPath)
 
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
-app.set('trust proxy', 1)
+
+const isDevMode = process.env.NODE_ENV === 'development'
+
+if(!isDevMode){
+    app.set('trust proxy', 1)
+}
+
 app.use(session({
-    secret: 'some',
+    secret:'thisis',
+    proxy:true,
     resave:'false',
     saveUninitialized:true,
     cookie:{
-        secure:true,
-        httpOnly:true, //for security, can be only access via web server
+        secure:!isDevMode,
         expires: new Date(Date.now()+12*3600000)
     }
-
 }))
 app.use(cookieParser()) //to parse cookie information
 app.use(express.static(publicDirectoryPath))
