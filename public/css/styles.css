@@ -65,3 +65,11 @@ button {
 html {
     margin: 0mm;
 }
+
+/* table overflow
+div.ex{
+    overflow-x: scroll;
+    width: 95%;
+    margin: auto;
+    overflow: auto;
+} */

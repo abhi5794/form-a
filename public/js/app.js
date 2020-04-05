@@ -19,8 +19,9 @@ const data = JSON.parse(getJson('/data'))
 const myTable = jexcel(document.getElementById('spreadsheet'),{
         data,
         search:true,
-        tableOverflow: true,
-        //pagination:20,
+        tableWidth:"1500px",
+        pagination:20,
+        tableOverflow:true,
         rowResize:true,
         lazyLoading:true,
         defaultColAlign:'left',
