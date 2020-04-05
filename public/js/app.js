@@ -31,6 +31,7 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
         wordWrap:true,
         allowRenameColumn:false,
         columns: [
+            { title:'Unit Ref. & date', type:'text', width:120, wordWrap: true},
             { title:'Bill of Entry No.', type:'text', width:120, wordWrap: true},
             { title: 'Customs Station of import', type:'text', width:150 }, //{ title:'Date', width:100, type:'calendar', options: { format:'DD/MM/YYYY' } },
             { title: 'Code warehouse', type:'text', width:120 },
