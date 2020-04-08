@@ -67,8 +67,9 @@ router.post('/save', auth, async(req,res)=>{
 router.get('/pdf',auth, async (req,res)=>{
     const user = await User.findById(req.user._id)
     const numData = await user.populate('formData').execPopulate()
+    const saveData = numData.formData[0].dataObject
     res.render('pdf',{
-        data: numData.formData[0].dataObject,
+        data: saveData
     },(err,html)=>{
         res.send(html)
     })

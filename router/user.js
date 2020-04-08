@@ -20,6 +20,7 @@ router.post('/users', async(req,res)=>{
         //     expires: new Date(Date.now()+12*3600000)
         // })
         //res.status(201).send({user,token}) not used anywhere
+        res.send('success')
     }catch(e){
         res.status(400).send(e)
     }
