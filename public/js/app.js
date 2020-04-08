@@ -1,4 +1,7 @@
 
+//to fetch the data : GET/data
+const data = JSON.parse(getJson('/data'))
+console.log(data)
 
 function getJson(url){
     return $.ajax({
@@ -13,9 +16,39 @@ function getJson(url){
     }).responseText
 }
 
-//to fetch the data
-const data = JSON.parse(getJson('/data'))
+//to post the data,SAVE button : POST/save
+function readData(){
+    $.ajax({
+        type:"POST",
+        url:"/save",
+        data: JSON.stringify(myTable.getJson()),
+        success : ()=>{
+            console.log('success')
+        },
+        contentType:"application/json"
+    })
+    //location.replace('/pdf')
+}
 
+//PDF button, go to PDF page
+function goToPDF(){
+    location.replace('/pdf')
+}
+
+//LOGOUT button : POST/users/logout
+function Logout(){
+    $.ajax({
+        type:"POST",
+        url:"/users/logout",
+        success : ()=>{
+            console.log('Successfully logged out')
+        },
+    })
+    //after logout, go to the login page
+    location.replace('/users/login')
+}
+
+//generate the PDF
 const myTable = jexcel(document.getElementById('spreadsheet'),{
         data,
         search:true,
@@ -23,7 +56,6 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
         pagination:20,
         tableOverflow:true,
         rowResize:true,
-        lazyLoading:true,
         defaultColAlign:'left',
         allowInsertColumn:false,
         allowManualInsertColumn:false,
@@ -31,6 +63,7 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
         wordWrap:true,
         allowRenameColumn:false,
         columns: [
+            { title:'Unit Ref. & date', type:'text', width:120, wordWrap: true},
             { title:'Bill of Entry No.', type:'text', width:120, wordWrap: true},
             { title: 'Customs Station of import', type:'text', width:150 }, //{ title:'Date', width:100, type:'calendar', options: { format:'DD/MM/YYYY' } },
             { title: 'Code warehouse', type:'text', width:120 },
@@ -75,28 +108,3 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
                 
         ]
     })
-
-//to post the data
-function readData(){
-    $.ajax({
-        type:"POST",
-        url:"/save",
-        data: JSON.stringify(myTable.getJson()),
-        success : ()=>{
-            console.log('success')
-        },
-        contentType:"application/json"
-    })
-    location.replace('/pdf')
-}
-
-function Logout(){
-    $.ajax({
-        type:"POST",
-        url:"/users/logout",
-        success : ()=>{
-            console.log('success')
-        },
-    })
-    location.replace('/users/login')
-}

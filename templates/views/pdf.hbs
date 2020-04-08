@@ -38,10 +38,14 @@
 <table style="border-collapse:collapse;margin-left:5.76pt" cellspacing="0">
     <tr style="height:11pt">
         <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2"/>
-        <td style="width:666pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="12">
+        <td style="width:666pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="13">
             <p class="s6" style="padding-left: 317pt;padding-right: 317pt;text-indent: 0pt;text-align: center;">Receipts</p>
             </td></tr>
             <tr style="height:84pt">
+                <td style="width:40pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+                    <p class="s4" style="padding-top: 6pt;padding-left: 7pt;padding-right: 7pt;text-indent: 0pt;text-align: center;">Unit Ref. and date</p></td>
+                                                                        
                 <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                     <p style="text-indent: 0pt;text-align: left;"><br/></p>
                     <p class="s4" style="padding-top: 6pt;padding-left: 7pt;padding-right: 7pt;text-indent: 0pt;text-align: center;">Bill of Entry No. and date, if applicable</p></td>
@@ -82,12 +86,15 @@
                                                                     <p class="s4" style="padding-left: 7pt;padding-right: 7pt;text-indent: 2pt;text-align: justify;">Registration No. of means of transport</p></td>
                                                                     <td style="width:40pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
                                                                         <p style="text-indent: 0pt;text-align: left;"><br/></p>
-                                                                        <p class="s4" style="padding-top: 6pt;padding-left: 7pt;padding-right: 7pt;text-indent: 0pt;text-align: center;">Date and time of receipt</p></td>
-                                                                        
+                                                                        <p class="s4" style="padding-top: 6pt;padding-left: 7pt;padding-right: 7pt;text-indent: 0pt;text-align: center;">Date and time of receipt</p></td> 
                                                                         </tr>
 
 {{#each data}}
 <tr style="height:21pt">
+    <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        <p class="s4" style="text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.UnitRefDate}}</p>
+        </td>
+
     <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s4" style="text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.BillofEntryNo}}</p>
         </td>
@@ -126,7 +133,8 @@
         <p class="s4" style="padding-left: 24pt;padding-right: 24pt;text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.Registration}}</p>
     </td>
     <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-        <p class="s4" style="text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.DateReceipt}}</p></td></tr>
+        <p class="s4" style="text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.DateReceipt}}</p></td>
+</tr>
 {{/each}}
 
 
