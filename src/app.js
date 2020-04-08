@@ -5,6 +5,7 @@ bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
+
 require('../db/mongoose')
 
 //define paths for express config
@@ -31,13 +32,26 @@ app.use(session({
         expires: new Date(Date.now()+12*3600000)
     }
 }))
-app.use(cookieParser()) //to parse cookie information
+app.use(cookieParser()) //to parse cookie information, should be above routes
 app.use(express.static(publicDirectoryPath))
 
 const mainRouter = require('../router/main')
 const userRouter = require('../router/user')
 app.use(mainRouter)
 app.use(userRouter)
+
+//req.app.locals.formDataID a variable that is visible in all routes
+
+//testing
+// const User = require('../models/user')
+// const testFunction = async function(){
+//     const user = await User.findById('5e8c1812739a0643a0e1de11')
+//     const numData = await user.populate('formData').execPopulate()
+//     const formDataID = numData.formData[0]._id
+//     console.log(numData.formData[0].dataObject)
+// }
+// testFunction()
+//testing
 
 app.listen(port, ()=>{
     console.log('Running on '+port)

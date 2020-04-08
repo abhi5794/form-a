@@ -2,7 +2,9 @@ const express = require('express')
 const FormData = require('../models/formdata')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const User = require('../models/user')
 
+//starter data
 let dataSaved=[]
 
 dataExcel = [{ 'UnitRefDate': 0,'BillofEntryNo': 1, 'CustomsStation': 2, 'Code': 3,
@@ -18,42 +20,55 @@ dataExcel = [{ 'UnitRefDate': 0,'BillofEntryNo': 1, 'CustomsStation': 2, 'Code':
 'QuantityRemoval':22,'ValueRemovals':23,'DutyRemovals':24,'DetailsDemovals':25,'PurposeReturns':26,'DateReturns':27,
 'QuantityReturns':28,'ValueReturns':29,'DutyReturns':30,'DetailsReturns':31,'BalanceQuantity':32,'BalanceValue':33,'EndRemarks':34}]
 
-router.post('/test',async (req,res)=>{
-    const formData = FormData(req.body)
-    try{
-        await formData.save()
-        res.status(200).send(formData)
-    }catch(e){
-        res.status(400).send(e)
-    }
-})
-
 dataExcelJson = JSON.stringify(dataExcel)
+
+//index page, this in turn calls GET/data
 router.get('',auth,(req,res)=>{
     res.render('index',{
-        title:'Form - A',
     })
 },(error, req, res, next)=>{
     res.status(400).send({error:error})
 })
 
-router.get('/data',auth ,(req,res)=>{
-    //console.log(req.app.locals.UserVariable)
-    res.send(dataExcelJson)
-})
-
-router.post('/save', async(req,res)=>{
-    dataSaved = req.body
-    console.log(req.body)
-
-})
-
-router.get('/pdf',auth, (req,res)=>{
-    if(dataSaved.length===0){
-        res.redirect('/')
+//GET/data
+router.get('/data',auth , async (req,res)=>{
+    try{//try will pass if the DB entry is created
+        const user = await User.findById(req.user._id)
+        const numData = await user.populate('formData').execPopulate()
+        req.app.locals.formDataID = numData.formData[0]._id //store data id
+        res.send(JSON.stringify(numData.formData[0].dataObject))
+    }catch(e){//starter data
+        res.send(JSON.stringify(dataExcel))
     }
+})
+
+//POST/save
+router.post('/save', auth, async(req,res)=>{
+    try{//check if user has pre-existing data
+        if(!req.app.locals.formDataID){
+            const formData = new FormData({
+            dataObject:req.body,
+            owner:req.user._id
+        })
+        formData.save()
+        }
+        else{//if not then overwrite the data from the page
+            const numData = await FormData.findById(req.app.locals.formDataID.toString())
+            numData.dataObject = req.body
+            await numData.save()
+        }
+        res.send()
+    }catch(e){
+        res.status(500).send({error:e})
+    }
+})
+
+//GET/pdf
+router.get('/pdf',auth, async (req,res)=>{
+    const user = await User.findById(req.user._id)
+    const numData = await user.populate('formData').execPopulate()
     res.render('pdf',{
-        data: dataSaved,
+        data: numData.formData[0].dataObject,
     },(err,html)=>{
         res.send(html)
     })
@@ -72,9 +87,5 @@ router.get('/about',(req,res)=>{
         name:'abhi'
     })
 })
-
-// router.get('*', (req,res)=>{
-//     res.send('404 from main') //
-// })
 
 module.exports = router
