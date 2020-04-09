@@ -1,6 +1,6 @@
 
 //to fetch the data : GET/data
-const data = JSON.parse(getJson('/data'))
+const data = JSON.parse(getJson('/data/fetch'))
 console.log(data)
 
 function getJson(url){
@@ -20,7 +20,7 @@ function getJson(url){
 function readData(){
     $.ajax({
         type:"POST",
-        url:"/save",
+        url:"/data/save",
         data: JSON.stringify(myTable.getJson()),
         success : ()=>{
             console.log('success')
@@ -32,7 +32,7 @@ function readData(){
 
 //PDF button, go to PDF page
 function goToPDF(){
-    location.replace('/pdf')
+    location.replace('/data/pdf')
 }
 
 //LOGOUT button : POST/users/logout

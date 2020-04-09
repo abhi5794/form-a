@@ -31,7 +31,7 @@ router.get('',auth,(req,res)=>{
 })
 
 //GET/data
-router.get('/data',auth , async (req,res)=>{
+router.get('/data/fetch',auth , async (req,res)=>{
     try{//try will pass if the DB entry is created
         const user = await User.findById(req.user._id)
         const numData = await user.populate('formData').execPopulate()
@@ -43,7 +43,7 @@ router.get('/data',auth , async (req,res)=>{
 })
 
 //POST/save
-router.post('/save', auth, async(req,res)=>{
+router.post('/data/save', auth, async(req,res)=>{
     try{//check if user has pre-existing data
         if(!req.app.locals.formDataID){
             const formData = new FormData({
@@ -64,7 +64,7 @@ router.post('/save', auth, async(req,res)=>{
 })
 
 //GET/pdf
-router.get('/pdf',auth, async (req,res)=>{
+router.get('/data/pdf',auth, async (req,res)=>{
     const user = await User.findById(req.user._id)
     const numData = await user.populate('formData').execPopulate()
     const saveData = numData.formData[0].dataObject
@@ -75,18 +75,18 @@ router.get('/pdf',auth, async (req,res)=>{
     })
 })
 
-router.get('/help',(req,res)=>{
-    res.render('help',{
-        title:'Help',
-        name:'abhi'
-    })
-})
+// router.get('/help',(req,res)=>{
+//     res.render('help',{
+//         title:'Help',
+//         name:'abhi'
+//     })
+// })
 
-router.get('/about',(req,res)=>{
-    res.render('about',{
-        title:'about',
-        name:'abhi'
-    })
-})
+// router.get('/about',(req,res)=>{
+//     res.render('about',{
+//         title:'about',
+//         name:'abhi'
+//     })
+// })
 
 module.exports = router
