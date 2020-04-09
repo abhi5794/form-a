@@ -1,33 +1,30 @@
 
-//to fetch the data : GET/data
-const data = JSON.parse(getJson('/data/fetch'))
-console.log(data)
-
-function getJson(url){
-    return $.ajax({
-        type:'GET',
-        url,
-        async:false,
-        global:false,
-        datatype:'json',
-        success: (r)=>{
-            return r
-        }
-    }).responseText
+const para1 = document.getElementById('p1')
+//to fetch the data : GET/data/fetch
+async function getJson(url){
+    try{
+        const response = await axios.get(url)
+        return response.data
+    }catch(e){
+        console.log(e)
+    }
 }
 
 //to post the data,SAVE button : POST/save
-function readData(){
-    $.ajax({
-        type:"POST",
-        url:"/data/save",
-        data: JSON.stringify(myTable.getJson()),
-        success : ()=>{
-            console.log('success')
-        },
-        contentType:"application/json"
-    })
-    //location.replace('/pdf')
+async function readData(){
+    para1.textContent = 'Loading...'
+    document.getElementById('pdf').style.visibility='hidden'
+    try{
+        axios({
+            method:'post',
+            url:'/data/save',
+            data: myTable.getJson()
+        })
+        para1.textContent = ''
+        document.getElementById('pdf').style.visibility='visible'
+    }catch(e){
+        console.log(e)
+    }
 }
 
 //PDF button, go to PDF page
@@ -36,21 +33,22 @@ function goToPDF(){
 }
 
 //LOGOUT button : POST/users/logout
-function Logout(){
-    $.ajax({
-        type:"POST",
-        url:"/users/logout",
-        success : ()=>{
-            console.log('Successfully logged out')
-        },
-    })
-    //after logout, go to the login page
-    location.replace('/users/login')
+async function Logout(){
+    try{
+        axios({
+            method:'post',
+            url:'/users/logout'
+        })
+        location.replace('/users/login') //after logout go to login page
+    }catch(e){
+        console.log(e)
+    }
 }
 
 //generate the PDF
-const myTable = jexcel(document.getElementById('spreadsheet'),{
-        data,
+async function myTablefunction(){
+    myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
+        data: await getJson('/data/fetch'),
         search:true,
         tableWidth:"1300px",
         pagination:20,
@@ -83,7 +81,6 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
             { title: 'Value', type:'text', width:100 },
             { title: 'Duty involved', type:'text', width:100 },
             { title: ' ', type:'text', width:100 },
-
             { title: 'Purpose of removal', type:'text', width:100 },
             { title: 'Date & Time', type:'text', width:100 },
             { title: 'Quantity', type:'text', width:100 },
@@ -108,3 +105,7 @@ const myTable = jexcel(document.getElementById('spreadsheet'),{
                 
         ]
     })
+}
+
+myTablefunction() //async function is defined as axios is async
+

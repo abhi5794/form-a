@@ -3,12 +3,13 @@
     <title>Form A PDF generator</title>
     <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
     <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
     <button onclick="readData()">Save</button>
     <button onclick="Logout()">Logout</button>
-    <button onclick="goToPDF()">PDF</button>
+    <button onclick="goToPDF()" id="pdf">PDF</button>
+    <p id="p1"></p>
     <link rel="stylesheet" href="/css/styles.css">
     <div></div>
     <div id="spreadsheet" class="ex"></div>

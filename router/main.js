@@ -36,7 +36,8 @@ router.get('/data/fetch',auth , async (req,res)=>{
         const user = await User.findById(req.user._id)
         const numData = await user.populate('formData').execPopulate()
         req.app.locals.formDataID = numData.formData[0]._id //store data id
-        res.send(JSON.stringify(numData.formData[0].dataObject))
+        // res.send(JSON.stringify(numData.formData[0].dataObject))
+        res.send(numData.formData[0].dataObject)
     }catch(e){//starter data
         res.send(JSON.stringify(dataExcel))
     }
