@@ -20,8 +20,6 @@ dataExcel = [{ 'UnitRefDate': 0,'BillofEntryNo': 1, 'CustomsStation': 2, 'Code':
 'QuantityRemoval':22,'ValueRemovals':23,'DutyRemovals':24,'DetailsDemovals':25,'PurposeReturns':26,'DateReturns':27,
 'QuantityReturns':28,'ValueReturns':29,'DutyReturns':30,'DetailsReturns':31,'BalanceQuantity':32,'BalanceValue':33,'EndRemarks':34}]
 
-dataExcelJson = JSON.stringify(dataExcel)
-
 //index page, this in turn calls GET/data
 router.get('',auth,(req,res)=>{
     res.render('index',{
@@ -39,7 +37,7 @@ router.get('/data/fetch',auth , async (req,res)=>{
         // res.send(JSON.stringify(numData.formData[0].dataObject))
         res.send(numData.formData[0].dataObject)
     }catch(e){//starter data
-        res.send(JSON.stringify(dataExcel))
+        res.send(dataExcel)
     }
 })
 
