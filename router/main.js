@@ -3,6 +3,7 @@ const FormData = require('../models/formdata')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../models/user')
+const herokuLogger = require('heroku-logger')
 
 //starter data
 let dataSaved=[]
@@ -24,6 +25,8 @@ let dataSaved=[]
 
 //new index page
 router.get('', auth, async (req,res)=>{
+    console.log('landing page rendered CL')
+    herokuLogger.log('landing page rendered HK')
     filterData = await FormData.find({ // fetch files for the current year
         period:{
             $gte:'2012-01-31'
@@ -67,7 +70,6 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
             res.send('no data found')
         }else{
             pdfData = numData.formData[0].dataObject //PDF
-            console.log(pdfData)
             res.send(numData.formData[0])
         }
     }catch(e){
