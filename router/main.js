@@ -65,8 +65,8 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
         }).execPopulate()
         if(numData.formData.length ===0){
             res.send('no data found')
+            console.log('if block')
         }else{
-            console.log('else block ran')
             pdfData = numData.formData[0].dataObject //PDF
             console.log(numData.formData[0])
             res.send(numData.formData[0])
