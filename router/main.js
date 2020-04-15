@@ -55,7 +55,7 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
     try{
         console.log(req.params.date)
         let dateParsed = req.params.date.split(',').map((x)=>parseInt(x))
-        console.log*=(dateParsed)
+        console.log(dateParsed)
         let period = new Date(dateParsed[0],dateParsed[1]).toISOString()
         period = period.replace('Z','')+'+00:00'
         console.log(period)
@@ -75,7 +75,7 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
             res.send(numData.formData[0])
         }
     }catch(e){
-        console.log('catch block ran /data/fetch/:date')
+        res.status(500).send(e)
     }
 })
 
