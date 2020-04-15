@@ -21,8 +21,8 @@
                 const response = await axios.get(url)
                 numID = await response.data._id
                 return response.data.dataObject
-                console.log(response.data.dataObject)
-                console.log(response.data._id)
+                alert(response.data.dataObject)
+                alert(response.data._id)
             }catch(e){
                 console.log(e)
             }
