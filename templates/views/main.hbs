@@ -101,6 +101,7 @@
 
         }
         else{
+            alert(dateInputString)
             const url = '/data/fetch/'+ dateInputString
             let dateParsed = dateInputString.split(',').map((x)=>parseInt(x))
             let period = new Date(dateParsed[0],dateParsed[1])
