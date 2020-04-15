@@ -63,7 +63,7 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
                 period
             }
         }).execPopulate()
-        if(numData.formData.length ===0){
+        if(await numData.formData.length ===0){
             res.send('no data found')
             console.log('if block')
         }else{
