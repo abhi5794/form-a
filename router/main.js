@@ -53,12 +53,13 @@ router.get('/data/fetch/link/:date',auth, async(req,res)=>{
 //GET data by date
 router.get('/data/fetch/:date',auth, async(req,res)=>{
     try{
+        console.log(req.params.date)
         let dateParsed = req.params.date.split(',').map((x)=>parseInt(x))
+        console.log*=(dateParsed)
         let period = new Date(dateParsed[0],dateParsed[1]).toISOString()
         period = period.replace('Z','')+'+00:00'
         console.log(period)
         const user = await User.findById(req.user._id)
-        console.log(user)
         const numData = await user.populate({
             path:'formData',
             match:{
