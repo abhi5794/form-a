@@ -53,7 +53,6 @@ router.get('/data/fetch/link/:date',auth, async(req,res)=>{
 //GET data by date
 router.get('/data/fetch/:date',auth, async(req,res)=>{
     try{
-        console.log('this ran'+req.params.date)
         let dateParsed = req.params.date.split(',').map((x)=>parseInt(x))
         let period = new Date(dateParsed[0],dateParsed[1]).toISOString()
         period = period.replace('Z','')+'+00:00'
@@ -67,6 +66,7 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
         if(numData.formData.length ===0){
             res.send('no data found')
         }else{
+            console.log('else block ran')
             pdfData = numData.formData[0].dataObject //PDF
             console.log(numData.formData[0])
             res.send(numData.formData[0])
