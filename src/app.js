@@ -30,6 +30,8 @@ app.set('view engine', 'hbs') // to be added for hbs
 app.set('views', viewPath) //for hbs views folder, since it is not in the default views folder
 hbs.registerPartials(partialsPath)
 
+app.disable('etag')
+
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
 app.set('trust proxy', 1)
