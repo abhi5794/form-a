@@ -19,15 +19,17 @@
         async function getJson(url){
             try{
                 const response = await axios.get(url)
-                numID = response.data._id
+                numID = await response.data._id
                 return response.data.dataObject
+                console.log(response.data.dataObject)
+                console.log(response.data._id)
             }catch(e){
                 console.log(e)
             }
         }
         async function myTablefunction(){
-            document.getElementById('spreadsheet').innerHTML='' // clear table 
-        myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
+            //document.getElementById('spreadsheet').innerHTML='' // clear table 
+            myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
             data: await getJson('/data/fetch/{{date}}'),
             search:true,
             tableWidth:"1300px",

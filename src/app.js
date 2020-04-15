@@ -13,6 +13,7 @@ const session = require('express-session')
 // back button based on browser history
 // button for home
 // add additional validation to the new entry creation FM
+// trim code
 
 
 require('../db/mongoose')
