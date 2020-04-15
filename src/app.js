@@ -45,12 +45,19 @@ app.use(session({
     }
 }))
 app.use(cookieParser()) //to parse cookie information, should be above routes
-app.use(express.static(publicDirectoryPath))
+
 
 const mainRouter = require('../router/main')
 const userRouter = require('../router/user')
 app.use(mainRouter)
 app.use(userRouter)
+
+app.get('/*', (req,res,next)=>{
+    res.setHeader('Last-Modified',(new Date()).toUTCString())
+    next()
+})
+
+app.use(express.static(publicDirectoryPath))
 
 app.listen(port, ()=>{
     console.log('Running on '+port)

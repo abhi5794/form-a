@@ -96,8 +96,8 @@ router.delete('/users/me',auth , async (req, res)=>{
 })
 
 //404 page
-router.get('*',(req,res)=>{
-    res.send({error:'Page not found'})
-})
+// router.get('*',(req,res)=>{
+//     res.send({error:'Page not found'})
+// })
 
 module.exports = router
