@@ -4,6 +4,15 @@ const hbs = require('hbs') // this is for using partials
 bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+//To-do
+// Remove unused code
+// Make filter option
+// Make the existing filter dynamic
+// Store the scripts in node_modules
+// set expiry for token, 24 hrs
+// back button based on browser history
+// button for home
+// add additional validation to the new entry creation FM
 
 
 require('../db/mongoose')
@@ -14,7 +23,7 @@ const viewPath = path.join(__dirname,'../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT // get the env var when running in heroku
 
 app.set('view engine', 'hbs') // to be added for hbs
 app.set('views', viewPath) //for hbs views folder, since it is not in the default views folder
@@ -39,19 +48,6 @@ const mainRouter = require('../router/main')
 const userRouter = require('../router/user')
 app.use(mainRouter)
 app.use(userRouter)
-
-//req.app.locals.formDataID a variable that is visible in all routes
-
-//testing
-// const User = require('../models/user')
-// const testFunction = async function(){
-//     const user = await User.findById('5e8c1812739a0643a0e1de11')
-//     const numData = await user.populate('formData').execPopulate()
-//     const formDataID = numData.formData[0]._id
-//     console.log(numData.formData[0].dataObject)
-// }
-// testFunction()
-//testing
 
 app.listen(port, ()=>{
     console.log('Running on '+port)
