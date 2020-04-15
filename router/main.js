@@ -53,6 +53,7 @@ router.get('/data/fetch/link/:date',auth, async(req,res)=>{
 //GET data by date
 router.get('/data/fetch/:date',auth, async(req,res)=>{
     try{
+        console.log('this ran'+req.params.date)
         let dateParsed = req.params.date.split(',').map((x)=>parseInt(x))
         let period = new Date(dateParsed[0],dateParsed[1]).toISOString()
         period = period.replace('Z','')+'+00:00'
