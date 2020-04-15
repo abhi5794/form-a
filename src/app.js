@@ -52,10 +52,10 @@ const userRouter = require('../router/user')
 app.use(mainRouter)
 app.use(userRouter)
 
-app.get('/*', (req,res,next)=>{
-    res.setHeader('Last-Modified',(new Date()).toUTCString())
-    next()
-})
+// app.get('/*', (req,res,next)=>{
+//     res.setHeader('Last-Modified',(new Date()).toUTCString())
+//     next()
+// })
 
 app.use(express.static(publicDirectoryPath))
 
