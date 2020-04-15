@@ -19,10 +19,8 @@
         async function getJson(url){
             try{
                 const response = await axios.get(url)
-                numID = await response.data._id
+                numID = response.data._id
                 return response.data.dataObject
-                alert(response.data.dataObject)
-                alert(response.data._id)
             }catch(e){
                 console.log(e)
             }
@@ -101,7 +99,6 @@
 
         }
         else{
-            alert(dateInputString)
             const url = '/data/fetch/'+ dateInputString
             let dateParsed = dateInputString.split(',').map((x)=>parseInt(x))
             let period = new Date(dateParsed[0],dateParsed[1])

@@ -67,6 +67,7 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
             res.send('no data found')
         }else{
             pdfData = numData.formData[0].dataObject //PDF
+            console.log(pdfData)
             res.send(numData.formData[0])
         }
     }catch(e){
