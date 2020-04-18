@@ -2,31 +2,88 @@
 
 <html>
     <title>Form A PDF generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/css/styles.css">
-
-<body>
+    <style>
+        .wrapper{
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 20% 50%;
+            background-color: #ffff;
+            color: #444;
+        }
+        .box{
+            background-color: #e3e3e3;
+            color: #444;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .a {
+            grid-column: 2;
+            grid-row: 1;
+            grid-auto-columns: minmax(10px, auto);
+        }
+        .b{
+            grid-column: 2;
+            grid-row: 2;
+            grid-auto-columns: minmax(10px, auto);
+        }
+        .c{
+            grid-column: 1;
+            grid-row: 1/3;
+            grid-auto-rows: minmax(100px, auto);
+        }
+        .nest{
+            padding: 0.5em;
+        }
+        .nest:nth-child(odd){
+            background: #f0f0f0;
+        }
+    </style>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-ui-monthpicker@1.0.3/jquery.ui.monthpicker.min.js"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+    
     {{>navbar}}
     <div style="padding:30px;margin-top:40px;">
-
+    <body>
+        <h1>Form-A Generator</h1>
     <div></div>
 
-    <p>Select the month to create entry : 
-    <input class="monthpicker" type="text" id="monthText" autocomplete="off" placeholder="Select the date"/>
-    <button type="submit"id="submitBtn">Create Entry</button>
-    </p>
-
-    <div>
-        <p>Enter the from and to date : 
-        <input class="monthpickerfrom" type="text" id="monthTextfrom" autocomplete="off" placeholder="From date"/>
-        <input class="monthpickerto" type="text" id="monthTextto" autocomplete="off" placeholder="To date"/>
-        <button type="submit"id="submitRange">Show Entry</button>
-        </p>
+    <div class="wrapper">
+        <div class="box a">
+            <h4>Create new entry</h4>
+            <hr style="noshadow ;border-top: 1px solid black;">
+            <p>Select the date to create entry : 
+            <input class="monthpicker" type="text" id="monthText" autocomplete="off" placeholder="Select the date"/>
+            <button type="submit"id="submitBtn">Create Entry</button>
+            </p>
+            <span style="font-size: 12px">New entry will be created, if an entry exists then it will be displayed</span>
+        </div>
+        <div class="box b">
+            <h4>Generate PDF for date range</h4>
+            <hr style="noshadow ;border-top: 1px solid black;">
+            <p>Enter the from and to date : 
+            <input class="monthpickerfrom" type="text" id="monthTextfrom" autocomplete="off" placeholder="From date"/>
+            <input class="monthpickerto" type="text" id="monthTextto" autocomplete="off" placeholder="To date"/>
+            <button type="submit"id="submitRange">Show Entry</button>
+            </p>
+            <span style="font-size: 12px">This will generate the PDF for the keyed date range</span>
+        </div>
+        <div class="box c">
+                <h4>Existing Entries: YYYY,MM</h4>
+                <hr style="noshadow ;border-top: 1px solid black;">
+            {{#each data}}
+                <div class="nest">
+                <a href="/data/fetch/link/{{this.periodString}}">{{this.periodString}}</a>
+                </div>
+            {{/each}}
+        </div>
     </div>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-monthpicker@1.0.3/jquery.ui.monthpicker.min.js"></script>
+    
     <script>
 
         document.getElementById('submitRange').onclick = function(){
@@ -92,37 +149,6 @@
         });
 
     </script>
-    
-    <table>
-        <style>
-            .well {
-                min-height: 10px;
-                padding: 10px;
-                margin-bottom: 10px;
-                background-color: #f5f5f5;
-                border: 1px solid #e3e3e3;
-                border-radius: 4px;
-                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-                box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-            }
-        </style>
-        <tr>
-            <td>
-                <p>Year,month</p>
-            </td>
-        </tr>
-
-        {{#each data}}
-        
-        <tr>
-            <td class="well">
-                <p></p>
-                <a href="/data/fetch/link/{{this.periodString}}">{{this.periodString}}</a>
-                <p></p>
-            </td>
-        </tr>
-        {{/each}}
-    </table>
 
 </body>
 

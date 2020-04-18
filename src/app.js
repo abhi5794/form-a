@@ -6,10 +6,10 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
 
-// Store the scripts in node_modules
 // set expiry for token, 24 hrs
 // add additional validation to the new entry creation FM
 // trim code
+// fix pdfData being empty in main.js, when the page is reloaded, redirect home
 
 
 require('../db/mongoose')
