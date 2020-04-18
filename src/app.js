@@ -8,7 +8,6 @@ const session = require('express-session')
 // Make the existing filter dynamic
 // Store the scripts in node_modules
 // set expiry for token, 24 hrs
-// back button based on browser history
 // button for home
 // add additional validation to the new entry creation FM
 // trim code

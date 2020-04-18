@@ -4,10 +4,13 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../models/user')
 
+//go to range page
 router.get('/data/range/:dateRange',auth ,(req,res)=>{
     dateRange = req.params.dateRange
     res.render('range')
 })
+
+//get data for range page
 router.get('/data/rangeGet',auth, async(req,res)=>{
     dateRange = dateRange.split('+').map((x)=>parseInt(x))
     let startPeriod = new Date(dateRange[1],dateRange[0])
