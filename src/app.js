@@ -5,7 +5,6 @@ bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
-// Remove unused code
 // Make filter option
 // Make the existing filter dynamic
 // Store the scripts in node_modules
@@ -58,6 +57,47 @@ app.use(userRouter)
 // })
 
 app.use(express.static(publicDirectoryPath))
+
+const FormData = require('../models/formdata')
+const User = require('../models/user')
+const mongoose = require('mongoose')
+async function functionName(){
+    formData = await FormData.aggregate([
+        {
+            $match:{
+                owner: mongoose.Types.ObjectId('5e929da7ceb0083458d5343d'),
+                period:{
+                    $gte:new Date('2020-01-31')
+                    ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
+                }
+            }
+        }
+        ,
+        {
+            $unwind:'$dataObject'
+        },
+        {
+            $group:{
+                _id:null,
+                dataObject:{$push:'$dataObject'}
+            }
+        }
+    ])
+    console.log(formData)
+}
+
+// async function functionName(){
+//     filterData = await FormData.find({ // fetch files for the current year
+        // period:{
+        //     $gte:'2020-01-31'
+        //     ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
+        // }
+        // ,owner:'5e929da7ceb0083458d5343d'
+//     },{'_id':0,'dataObject':1}).sort({period:-1})
+//     console.log(filterData)
+// }
+
+// functionName()
 
 app.listen(port, ()=>{
     console.log('Running on '+port)

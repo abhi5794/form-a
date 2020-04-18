@@ -3,12 +3,104 @@
 <html>
     <title>Form A PDF generator</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
     <link rel="stylesheet" href="/css/styles.css">
 <head>
     <h1>Overview</h1>
 <body>
-    <button onclick="datePicker()" id="pdf">New Entry</button>
     <button onclick="Logout()">Logout</button>
+    <body>
+    
+    </body>
+    <div></div>
+
+    <input class="monthpicker" type="text" id="monthText" autocomplete="off"/>
+    <button type="submit"id="submitBtn">Create Entry</button>
+
+    <div>
+        <input class="monthpickerfrom" type="text" id="monthTextfrom" autocomplete="off"/>
+        <input class="monthpickerto" type="text" id="monthTextto" autocomplete="off"/>
+        <button type="submit"id="submitRange">Show Entry</button>
+    </div>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-monthpicker@1.0.3/jquery.ui.monthpicker.min.js"></script>
+    <script>
+
+        document.getElementById('submitRange').onclick = function(){
+            alert(document.getElementById('monthTextfrom').value + document.getElementById('monthTextto').value)
+        }
+        $(function() {
+        $('input.monthpickerfrom').monthpicker({
+            changeYear: true,
+        });
+        });
+        $(function() {
+        $('input.monthpickerto').monthpicker({
+            changeYear: true,
+        });
+        });
+
+
+        document.getElementById('submitBtn').onclick = async function(){
+            dateInputString = document.getElementById('monthText').value.split('/')
+            dateInputString = dateInputString[1]+','+dateInputString[0]
+                if(dateInputString.length!==7 || dateInputString.length===0){
+                    alert('Enter a valid date')
+                    throw new Error('Enter a valid date')
+
+                }
+                else{// when its a valid date
+                    const url = '/data/fetch/'+ dateInputString
+                    let dateParsed = dateInputString.split(',').map((x)=>parseInt(x))
+                    let period = new Date(dateParsed[0],dateParsed[1])
+                    const response = await axios.get(url)
+                    console.log(response)
+                    if(response.data==='no data found'){
+                        alert('No data found, entry will be created')
+                        axios({
+                            method:'post',
+                            url:'/data/save/new',
+                            data: {"dataObject":[
+                                { "UnitRefDate": 'Starter kit',"BillofEntryNo": 1, "CustomsStation": 2, "Code": 3,
+                            "NameAddress":4, "Others":5, "DetailsB17":6,"Description":7, "InvoiceNo":8, "ProcCert":9,
+                            "UnitWeight":10, "ValueReceipt":11, "Duty":12, "Registration":13, "DateReceipt":14, "DateRemoval":15,
+                            "QuantityCleared":16, "ValueRemoval":17, "DutyInvolved":18,"Remarks":19,"PuposeofRemoval":20,"DateRemovals":21,
+                            "QuantityRemoval":22,"ValueRemovals":23,"DutyRemovals":24,"DetailsDemovals":25,"PurposeReturns":26,"DateReturns":27,
+                            "QuantityReturns":28,"ValueReturns":29,"DutyReturns":30,"DetailsReturns":31,"BalanceQuantity":32,"BalanceValue":33,"EndRemarks":34}
+                            ],
+                            "periodString":dateInputString,
+                            "period": period
+                            }
+                        })
+                        location.replace('/data/fetch/link/'+dateInputString)
+                    }
+                    else{
+                        location.replace('/data/fetch/link/'+dateInputString)
+                    }
+                }
+            }
+        async function Logout(){
+                try{
+                    axios({
+                        method:'post',
+                        url:'/users/logoutAll'
+                    })
+                    location.replace('/users/login') //after logout go to login page
+                }catch(e){
+                    console.log(e)
+                }
+        }
+
+        $(function() {
+        $('input.monthpicker').monthpicker({
+            changeYear: true,
+        });
+        });
+
+    </script>
+    
     <table>
         {{#each data}}
         <tr>
@@ -21,7 +113,7 @@
         {{/each}}
     </table>
     
-    <script src="/js/app.js"></script>
+    {{!-- <script src="/js/app.js"></script> --}}
 </body>
 
 </head>

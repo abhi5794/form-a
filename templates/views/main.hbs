@@ -20,7 +20,9 @@
             try{
                 const response = await axios.get(url)
                 numID = response.data._id
-                return response.data.dataObject
+                console.log(typeof(response.data))
+                return response.data
+                {{!-- return response.data.dataObject --}}
             }catch(e){
                 console.log(e)
             }
@@ -28,7 +30,8 @@
         async function myTablefunction(){
             //document.getElementById('spreadsheet').innerHTML='' // clear table 
             myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
-            data: await getJson('/data/fetch/{{date}}'),
+            data: await getJson('/data/range'),
+            {{!-- data: await getJson('/data/fetch/{{date}}'), --}}
             search:true,
             tableWidth:"1300px",
             pagination:20,
@@ -91,43 +94,6 @@
 
     //
 
-    async function datePicker(){
-        let dateInputString = prompt('Enter the date, ex: 2012.12').replace('.',',')
-        if(dateInputString.length!==7 || dateInputString.length===0){
-            alert('Enter a valid date')
-            throw new Error('Enter a valid date')
-
-        }
-        else{
-            const url = '/data/fetch/'+ dateInputString
-            let dateParsed = dateInputString.split(',').map((x)=>parseInt(x))
-            let period = new Date(dateParsed[0],dateParsed[1])
-            const response = await axios.get(url)
-            if(response.data==='no data found'){
-                alert('No data found, entry will be created')
-                axios({
-                    method:'post',
-                    url:'/data/save/new',
-                    data: {"dataObject":[
-                        { "UnitRefDate": 'Starter kit',"BillofEntryNo": 1, "CustomsStation": 2, "Code": 3,
-                    "NameAddress":4, "Others":5, "DetailsB17":6,"Description":7, "InvoiceNo":8, "ProcCert":9,
-                    "UnitWeight":10, "ValueReceipt":11, "Duty":12, "Registration":13, "DateReceipt":14, "DateRemoval":15,
-                    "QuantityCleared":16, "ValueRemoval":17, "DutyInvolved":18,"Remarks":19,"PuposeofRemoval":20,"DateRemovals":21,
-                    "QuantityRemoval":22,"ValueRemovals":23,"DutyRemovals":24,"DetailsDemovals":25,"PurposeReturns":26,"DateReturns":27,
-                    "QuantityReturns":28,"ValueReturns":29,"DutyReturns":30,"DetailsReturns":31,"BalanceQuantity":32,"BalanceValue":33,"EndRemarks":34}
-                    ],
-                    "periodString":dateInputString,
-                    "period": period
-                    }
-                })
-            }
-            else{
-                dataFetched = response.data
-                myTablefunction(dataFetched)
-            }
-        }
-    }
-
     //to post the data,SAVE button : POST/save
     async function saveData(){
         para1.textContent = 'Loading...'
@@ -156,7 +122,7 @@
         try{
             axios({
                 method:'post',
-                url:'/users/logout'
+                url:'/users/logoutAll'
             })
             location.replace('/users/login') //after logout go to login page
         }catch(e){

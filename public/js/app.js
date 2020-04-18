@@ -1,5 +1,4 @@
 const para1 = document.getElementById('p1')
-
 // async function getJson(url){
 //     try{
 //         const response = await axios.get(url)
@@ -10,7 +9,7 @@ const para1 = document.getElementById('p1')
 // }
 
 async function datePicker(){
-    let dateInputString = prompt('Enter the date, ex: 2012.12').replace('.',',')
+    dateInputString = prompt('Enter the date, ex: 2012.12').replace('.',',')
     if(dateInputString.length!==7 || dateInputString.length===0){
         alert('Enter a valid date')
         throw new Error('Enter a valid date')

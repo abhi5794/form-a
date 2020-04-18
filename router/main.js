@@ -4,30 +4,42 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../models/user')
 
-//starter data
-let dataSaved=[]
-// console.log(newDataVar)
-
-//needs to be removed
-// dataExcel = [{ 'UnitRefDate': 0,'BillofEntryNo': 1, 'CustomsStation': 2, 'Code': 3,
-//  'NameAddress':4, 'Others':5, 'DetailsB17':6,'Description':7, 'InvoiceNo':8, 'ProcCert':9,
-//   'UnitWeight':10, 'ValueReceipt':11, 'Duty':12, 'Registration':13, 'DateReceipt':14, 'DateRemoval':15,
-// 'QuantityCleared':16, 'ValueRemoval':17, 'DutyInvolved':18,'Remarks':19,'PuposeofRemoval':20,'DateRemovals':21,
-// 'QuantityRemoval':22,'ValueRemovals':23,'DutyRemovals':24,'DetailsDemovals':25,'PurposeReturns':26,'DateReturns':27,
-// 'QuantityReturns':28,'ValueReturns':29,'DutyReturns':30,'DetailsReturns':31,'BalanceQuantity':32,'BalanceValue':33,'EndRemarks':34},
-// { 'UnitRefDate': 0,'BillofEntryNo': 1, 'CustomsStation': 2, 'Code': 3,
-//  'NameAddress':4, 'Others':5, 'DetailsB17':6,'Description':7, 'InvoiceNo':8, 'ProcCert':9,
-//   'UnitWeight':10, 'ValueReceipt':11, 'Duty':12, 'Registration':13, 'DateReceipt':14, 'DateRemoval':15,
-// 'QuantityCleared':16, 'ValueRemoval':17, 'DutyInvolved':18,'Remarks':19,'PuposeofRemoval':20,'DateRemovals':21,
-// 'QuantityRemoval':22,'ValueRemovals':23,'DutyRemovals':24,'DetailsDemovals':25,'PurposeReturns':26,'DateReturns':27,
-// 'QuantityReturns':28,'ValueReturns':29,'DutyReturns':30,'DetailsReturns':31,'BalanceQuantity':32,'BalanceValue':33,'EndRemarks':34}]
+const mongoose = require('mongoose')
+router.get('/data/test',(req,res)=>{
+    res.render('main')
+})
+router.get('/data/range',async(req,res)=>{
+    formData = await FormData.aggregate([
+        {
+            $match:{
+                owner: mongoose.Types.ObjectId('5e929da7ceb0083458d5343d'),
+                period:{
+                    $gte:new Date('2020-01-31')
+                    ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
+                }
+            }
+        },
+        {
+            $unwind:'$dataObject'
+        },
+        {
+            $group:{
+                _id:null,
+                dataObject:{$push:'$dataObject'}
+            }
+        }
+    ])
+    console.log(formData[0].dataObject)
+    res.send(formData[0].dataObject)
+    }
+)
 
 //new index page
 router.get('', auth, async (req,res)=>{
     filterData = await FormData.find({ // fetch files for the current year
         period:{
-            $gte:'2012-01-31'
-            ,$lte:new Date(new Date('2012-12-31').setHours(24,00,00))
+            $gte:'2020-01-31'
+            ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
         }
         ,owner:req.user._id
     }).sort({period:-1})
