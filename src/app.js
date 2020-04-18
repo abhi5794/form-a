@@ -5,7 +5,6 @@ bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
-// Make filter option
 // Make the existing filter dynamic
 // Store the scripts in node_modules
 // set expiry for token, 24 hrs

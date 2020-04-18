@@ -9,14 +9,16 @@ router.get('/data/range/:dateRange',auth ,(req,res)=>{
     res.render('range')
 })
 router.get('/data/rangeGet',auth, async(req,res)=>{
-    console.log(dateRange)
+    dateRange = dateRange.split('+').map((x)=>parseInt(x))
+    let startPeriod = new Date(dateRange[1],dateRange[0])
+    let endPeriod = new Date(dateRange[3],dateRange[2])
     formData = await FormData.aggregate([
         {
             $match:{
                 owner: req.user._id,
                 period:{
-                    $gte:new Date('2020-01-31')
-                    ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
+                    $gte:startPeriod
+                    ,$lte:endPeriod
                 }
             }
         },
