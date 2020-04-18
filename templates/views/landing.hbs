@@ -29,7 +29,9 @@
     <script>
 
         document.getElementById('submitRange').onclick = function(){
-            alert(document.getElementById('monthTextfrom').value + document.getElementById('monthTextto').value)
+            let dateRange = document.getElementById('monthTextfrom').value +'/'+ document.getElementById('monthTextto').value
+            dateRange = dateRange.replace(/\//g,'+')
+            location.replace('/data/range/'+dateRange)
         }
         $(function() {
         $('input.monthpickerfrom').monthpicker({

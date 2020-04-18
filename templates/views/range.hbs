@@ -6,7 +6,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
-    <button onclick="saveData()">Save</button>
     <button onclick="Logout()">Logout</button>
     <button onclick="goToPDF()" id="pdf">PDF</button>
     <p id="p1"></p>
@@ -19,8 +18,8 @@
         async function getJson(url){
             try{
                 const response = await axios.get(url)
-                numID = response.data._id
-                return response.data.dataObject
+                numID = response.data
+                return response.data
             }catch(e){
                 console.log(e)
             }
@@ -28,7 +27,7 @@
         async function myTablefunction(){
             //document.getElementById('spreadsheet').innerHTML='' // clear table 
             myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
-            data: await getJson('/data/fetch/{{date}}'),
+            data: await getJson('/data/rangeGet'),
             search:true,
             tableWidth:"1300px",
             pagination:20,
@@ -90,23 +89,6 @@
     myTablefunction()
 
     //
-
-    //to post the data,SAVE button : POST/save
-    async function saveData(){
-        para1.textContent = 'Loading...'
-        document.getElementById('pdf').style.visibility='hidden'
-        try{
-            axios({
-                method:'patch',
-                url:'/data/save/'+numID,
-                data: myTable.getJson()
-            })
-            para1.textContent = ''
-            document.getElementById('pdf').style.visibility='visible'
-        }catch(e){
-            console.log(e)
-        }
-    }
 
 
     //PDF button, go to PDF page

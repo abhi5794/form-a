@@ -4,15 +4,16 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../models/user')
 
-const mongoose = require('mongoose')
-router.get('/data/test',(req,res)=>{
-    res.render('main')
+router.get('/data/range/:dateRange',auth ,(req,res)=>{
+    dateRange = req.params.dateRange
+    res.render('range')
 })
-router.get('/data/range',async(req,res)=>{
+router.get('/data/rangeGet',auth, async(req,res)=>{
+    console.log(dateRange)
     formData = await FormData.aggregate([
         {
             $match:{
-                owner: mongoose.Types.ObjectId('5e929da7ceb0083458d5343d'),
+                owner: req.user._id,
                 period:{
                     $gte:new Date('2020-01-31')
                     ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
@@ -29,7 +30,8 @@ router.get('/data/range',async(req,res)=>{
             }
         }
     ])
-    console.log(formData[0].dataObject)
+    pdfData=formData[0].dataObject
+    dateRange=''//nullify the value
     res.send(formData[0].dataObject)
     }
 )
