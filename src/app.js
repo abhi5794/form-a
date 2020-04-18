@@ -8,7 +8,6 @@ const session = require('express-session')
 
 // Store the scripts in node_modules
 // set expiry for token, 24 hrs
-// button for home
 // add additional validation to the new entry creation FM
 // trim code
 
