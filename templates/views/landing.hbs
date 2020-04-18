@@ -3,24 +3,25 @@
 <html>
     <title>Form A PDF generator</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    
     <link rel="stylesheet" href="/css/styles.css">
-<head>
-    <h1>Overview</h1>
+
 <body>
-    <button onclick="Logout()">Logout</button>
-    <body>
-    
-    </body>
+    {{>navbar}}
+    <div style="padding:30px;margin-top:40px;">
+
     <div></div>
 
-    <input class="monthpicker" type="text" id="monthText" autocomplete="off"/>
+    <p>Select the month to create entry : 
+    <input class="monthpicker" type="text" id="monthText" autocomplete="off" placeholder="Select the date"/>
     <button type="submit"id="submitBtn">Create Entry</button>
+    </p>
 
     <div>
-        <input class="monthpickerfrom" type="text" id="monthTextfrom" autocomplete="off"/>
-        <input class="monthpickerto" type="text" id="monthTextto" autocomplete="off"/>
+        <p>Enter the from and to date : 
+        <input class="monthpickerfrom" type="text" id="monthTextfrom" autocomplete="off" placeholder="From date"/>
+        <input class="monthpickerto" type="text" id="monthTextto" autocomplete="off" placeholder="To date"/>
         <button type="submit"id="submitRange">Show Entry</button>
+        </p>
     </div>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -83,17 +84,6 @@
                     }
                 }
             }
-        async function Logout(){
-                try{
-                    axios({
-                        method:'post',
-                        url:'/users/logoutAll'
-                    })
-                    location.replace('/users/login') //after logout go to login page
-                }catch(e){
-                    console.log(e)
-                }
-        }
 
         $(function() {
         $('input.monthpicker').monthpicker({
@@ -114,11 +104,8 @@
         </tr>
         {{/each}}
     </table>
-    
-    {{!-- <script src="/js/app.js"></script> --}}
+
 </body>
 
-</head>
-
-
+</div>
 </html>

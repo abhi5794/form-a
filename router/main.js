@@ -43,10 +43,11 @@ router.get('/data/rangeGet',auth, async(req,res)=>{
 
 //new index page
 router.get('', auth, async (req,res)=>{
+    let curYear = (new Date()).getFullYear()
     filterData = await FormData.find({ // fetch files for the current year
         period:{
-            $gte:'2020-01-31'
-            ,$lte:new Date(new Date('2020-12-31').setHours(24,00,00))
+            $gte:new Date(curYear,01)
+            ,$lte:new Date(curYear,12)
         }
         ,owner:req.user._id
     }).sort({period:-1})

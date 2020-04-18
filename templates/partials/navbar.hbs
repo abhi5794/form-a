@@ -1,0 +1,58 @@
+<style>
+body {margin:0;}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  cursor: pointer;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+</style>
+
+<body>
+<ul>
+  <li><a class="active" href="/">Home</a></li>
+  <li><a onclick="Logout()">Logout</a></li>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+      async function Logout(){
+        try{
+            axios({
+                method:'post',
+                url:'/users/logoutAll'
+            })
+            location.replace('/users/login') //after logout go to login page
+        }catch(e){
+            console.log(e)
+        }
+    }
+  </script>
+
+</ul>
+</body>

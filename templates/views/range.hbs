@@ -6,6 +6,11 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
+    
+    <body>
+        {{>navbar}}
+    </body>
+    <div style="padding:30px;margin-top:40px;">
     <button onclick="Logout()">Logout</button>
     <button onclick="goToPDF()" id="pdf">PDF</button>
     <p id="p1"></p>
@@ -109,5 +114,5 @@
         }
     }
     </script>
-
+</div>
 </html>
