@@ -6,12 +6,9 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
 
-// add additional validation to the new entry creation FM
 // trim code
 // set up error page
-// make password mandatory 
 // create test scripts
-// check if etag is required
 
 require('../db/mongoose')
 
@@ -55,15 +52,6 @@ app.use(userRouter)
 // })
 
 app.use(express.static(publicDirectoryPath))
-
-//testing
-
-const FormData = require('../models/formdata')
-const User = require('../models/user')
-
-
-
-// functionName()
 
 app.listen(port, ()=>{
     console.log('Running on '+port)
