@@ -1,20 +1,17 @@
 <html>
-    <h1>Form-A Generator</h1>
     <title>Form A PDF generator</title>
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
     <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
     
-    <body>
-        {{>navbar}}
-    </body>
+    {{>navbar}}
     <div style="padding:30px;margin-top:40px;">
     <button onclick="saveData()">Save</button>
     <button onclick="goToPDF()" id="pdf">PDF</button>
     <p id="p1"></p>
-    <link rel="stylesheet" href="/css/styles.css">
     <div></div>
     <div id="spreadsheet" class="ex"></div>
     <script>
@@ -93,8 +90,6 @@
 
     myTablefunction()
 
-    //
-
     //to post the data,SAVE button : POST/save
     async function saveData(){
         para1.textContent = 'Loading...'
@@ -119,5 +114,5 @@
     }
     
     </script>
-</div>
+    </div>
 </html>

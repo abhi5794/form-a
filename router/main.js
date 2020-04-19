@@ -36,8 +36,12 @@ router.get('/data/rangeGet',auth, async(req,res)=>{
         }
     ])
     pdfData=formData[0].dataObject
-    dateRange=''//nullify the value
-    res.send(formData[0].dataObject)
+    if(pdfData===[]){
+        res.redirect('')
+    }else{
+        dateRange=''//nullify the value
+        res.send(formData[0].dataObject)
+    }
     }
 )
 
@@ -87,25 +91,16 @@ router.get('/data/fetch/:date',auth, async(req,res)=>{
             res.send('no data found')
         }else{
             pdfData = numData.formData[0].dataObject //PDF
-            res.send(numData.formData[0])
+            if(pdfData===[]){
+                res.redirect('')
+            }else{
+                res.send(numData.formData[0])
+            }
         }
     }catch(e){
         res.status(500).send(e)
     }
 })
-
-//GET/data
-// router.get('/data/fetch',auth , async (req,res)=>{
-//     try{//try will pass if the DB entry is created
-//         const user = await User.findById(req.user._id)
-//         const numData = await user.populate('formData').execPopulate()
-//         req.app.locals.formDataID = numData.formData[0]._id //store data id
-//         // res.send(JSON.stringify(numData.formData[0].dataObject))
-//         res.send(numData.formData[0].dataObject)
-//     }catch(e){//starter data
-//         res.send(dataExcel)
-//     }
-// })
 
 //create a new file for the period
 router.post('/data/save/new',auth, async(req,res)=>{
@@ -136,27 +131,6 @@ router.patch('/data/save/:id',auth,async(req,res)=>{
         res.status(500)
     }
 })
-
-//POST/save
-// router.post('/data/save', auth, async(req,res)=>{
-//     try{//check if user has pre-existing data
-//         if(!req.app.locals.formDataID){
-//             const formData = new FormData({
-//             dataObject:req.body,
-//             owner:req.user._id
-//         })
-//         await formData.save()
-//         }
-//         else{//if not then overwrite the data from the page
-//             const numData = await FormData.findById(req.app.locals.formDataID.toString())
-//             numData.dataObject = req.body
-//             await numData.save()
-//         }
-//         res.send()
-//     }catch(e){
-//         res.status(500).send({error:e})
-//     }
-// })
 
 //GET/pdf
 router.get('/data/pdf',auth, async (req,res)=>{

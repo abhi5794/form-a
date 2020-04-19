@@ -14,7 +14,10 @@ router.post('/users', async(req,res)=>{
     try{
         await user.save()
         const token = await user.generateAuthToken()
-        res.cookie('Authorization','Bearer '+token)
+        res.cookie('Authorization','Bearer '+token,{
+            httpOnly:true,
+            expires : new Date(Date.now()+12*3600000)
+        })
         // res.cookie('Authorization','Bearer '+token,{
         //     httpOnly:true, //for security, can be only access via web server
         //     expires: new Date(Date.now()+12*3600000)
@@ -41,7 +44,10 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         const user = await User.findByCredentials(req.body.email,req.body.password)
         const token = await user.generateAuthToken()
         req.app.locals.UserVariable = user
-        res.cookie('Authorization','Bearer '+token)
+        res.cookie('Authorization','Bearer '+token,{
+            httpOnly:true,
+            expires : new Date(Date.now()+12*3600000)
+        })
         // res.cookie('Authorization','Bearer '+token,{
         //     httpOnly:true, //for security, can be only access via web server
         //     expires: new Date(Date.now()+12*3600000)
@@ -79,8 +85,6 @@ router.post('/users/logoutAll', auth, async (req,res)=>{
     }catch(e){
         res.status(500).send()
     }
-},(error, req, res, next)=>{
-    res.status(400).send({error:error})
 })
 
 //delete user : DELETE/users/me

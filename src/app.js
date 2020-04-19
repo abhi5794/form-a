@@ -6,11 +6,12 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
 
-// set expiry for token, 24 hrs
 // add additional validation to the new entry creation FM
 // trim code
-// fix pdfData being empty in main.js, when the page is reloaded, redirect home
-
+// set up error page
+// make password mandatory 
+// create test scripts
+// check if etag is required
 
 require('../db/mongoose')
 
@@ -26,20 +27,20 @@ app.set('view engine', 'hbs') // to be added for hbs
 app.set('views', viewPath) //for hbs views folder, since it is not in the default views folder
 hbs.registerPartials(partialsPath)
 
-app.disable('etag')
+// app.disable('etag')
 
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
 app.set('trust proxy', 1)
-app.use(session({
-    secret:'thisis',
-    resave:'false',
-    saveUninitialized:true,
-    cookie:{
-        secure:true,
-        expires: new Date(Date.now()+12*3600000)
-    }
-}))
+// app.use(session({
+//     secret:'thisis',
+//     resave:'false',
+//     saveUninitialized:true,
+//     cookie:{
+//         secure:true,
+//         expires: new Date(Date.now()+12*3600000)
+//     }
+// }))
 app.use(cookieParser()) //to parse cookie information, should be above routes
 
 
