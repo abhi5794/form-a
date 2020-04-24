@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
 
+// create loading screen
 // trim code
 // set up error page
 // create test scripts
@@ -51,7 +52,7 @@ app.use(userRouter)
 //     next()
 // })
 
-app.use(express.static(publicDirectoryPath))
+app.use(express.static(publicDirectoryPath)) // express will look for this path in case of static files
 
 app.listen(port, ()=>{
     console.log('Running on '+port)
