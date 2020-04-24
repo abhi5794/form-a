@@ -1,6 +1,36 @@
 <!DOCTYPE  html>
 <h1 class = "no-print">Form-A Generator</h1>
 <link rel="stylesheet" href="/css/styles.css">
+<style>
+        .loader{
+            position: fixed;
+            z-index: 99;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .loader>img{
+            width: 700px;
+        }
+
+        .loader.hidden{
+            animation: fadeOut 1s;
+            animation-fill-mode: forwards;
+        }
+
+    @keyframes fadeOut{
+        100%{
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    </style>
+
 <script>
 
     const goBack =function(){
@@ -9,6 +39,7 @@
     const goPrint =()=>{
         window.print()
     }
+
 </script>
 <button class = "no-print" onclick="goBack()">Home</button>
 <button class = "no-print" onclick="goPrint()">Print</button>
@@ -90,6 +121,14 @@
                                                                         </tr>
 
 {{#each data}}
+    {{#if @first}}<div class="loader">
+            <img src="/images/loader.gif" alt="Loading...">
+    </div>{{/if}}
+    
+    {{#if @last}}<script>
+        loader = document.getElementsByClassName('loader')
+        loader[0].className = 'loader hidden'
+    </script>{{/if}}
 <tr style="height:21pt">
     <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
         <p class="s4" style="text-indent: 0pt;line-height: 10pt;text-align: center;">{{this.UnitRefDate}}</p>

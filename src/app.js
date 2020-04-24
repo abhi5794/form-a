@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 //To-do
 
-// create loading screen
 // trim code
 // set up error page
 // create test scripts
