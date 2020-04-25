@@ -95,7 +95,7 @@ html {
 100%{
     opacity: 0;
     visibility: hidden;
-}
+}}
 /* table overflow
 div.ex{
     overflow-x: scroll;
