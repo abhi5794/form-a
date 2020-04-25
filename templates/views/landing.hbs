@@ -49,6 +49,9 @@
     
     {{>navbar}}
     <div style="padding:30px;margin-top:40px;">
+        <div class="loader">
+            <img src="/images/loader.gif" alt="Loading...">
+        </div>
     <body>
         <h1>Form-A Generator</h1>
     <div></div>
@@ -103,6 +106,10 @@
         });
         });
 
+        $(document).ready(()=>{
+            loader = document.getElementsByClassName('loader')
+            loader[0].className = 'loader hidden'
+        })
 
         document.getElementById('submitBtn').onclick = async function(){
             dateInputString = document.getElementById('monthText').value.split('/')
