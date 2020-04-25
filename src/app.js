@@ -3,7 +3,6 @@ const express = require('express')
 const hbs = require('hbs') // this is for using partials
 bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
 //To-do
 
 // trim code
@@ -24,32 +23,15 @@ app.set('view engine', 'hbs') // to be added for hbs
 app.set('views', viewPath) //for hbs views folder, since it is not in the default views folder
 hbs.registerPartials(partialsPath)
 
-// app.disable('etag')
-
 app.use(bodyParser.json()) // helps to parseinput to express as json
 app.use(bodyParser.urlencoded({extended:false})) //helps to parse input URL encoded data
 app.set('trust proxy', 1)
-// app.use(session({
-//     secret:'thisis',
-//     resave:'false',
-//     saveUninitialized:true,
-//     cookie:{
-//         secure:true,
-//         expires: new Date(Date.now()+12*3600000)
-//     }
-// }))
 app.use(cookieParser()) //to parse cookie information, should be above routes
 
-
 const mainRouter = require('../router/main')
-const userRouter = require('../router/user')
+const userRouter = require('../router/user') 
 app.use(mainRouter)
-app.use(userRouter)
-
-// app.get('/*', (req,res,next)=>{
-//     res.setHeader('Last-Modified',(new Date()).toUTCString())
-//     next()
-// })
+app.use(userRouter) // 404 page here
 
 app.use(express.static(publicDirectoryPath)) // express will look for this path in case of static files
 

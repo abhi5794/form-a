@@ -70,6 +70,7 @@ html {
     margin: 0mm;
 }
 
+/* for loading screen */
 .loader{
     position: fixed;
     z-index: 99;
@@ -96,10 +97,3 @@ html {
     opacity: 0;
     visibility: hidden;
 }}
-/* table overflow
-div.ex{
-    overflow-x: scroll;
-    width: 95%;
-    margin: auto;
-    overflow: auto;
-} */

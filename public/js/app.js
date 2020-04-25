@@ -1,4 +1,4 @@
-const para1 = document.getElementById('p1')
+
 // async function getJson(url){
 //     try{
 //         const response = await axios.get(url)
