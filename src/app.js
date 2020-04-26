@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 // trim code
 // set up error page
 // create test scripts
-// add cacheing 
+// error when not connected to internet
 
 require('../db/mongoose')
 
