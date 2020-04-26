@@ -41,7 +41,7 @@ router.get('/data/rangeGet',auth, async(req,res)=>{
         res.redirect('')
     }else{
         dateRange=''//nullify the value
-        res.send(formData[0].dataObject)
+        res.send(formData[0])
     }
     }
 )

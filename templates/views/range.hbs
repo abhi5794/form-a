@@ -5,100 +5,17 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
-    
     {{>navbar}}
     <div style="padding:30px;margin-top:40px;">
-
     <div class="loader">
-            <img src="/images/loader.gif" alt="Loading...">
+        <img src="/images/loader.gif" alt="Loading...">
     </div>
     <body>
     <h1>Form-A Generator : Range picker</h1>
     <button onclick="goToPDF()" id="pdf">PDF</button>
     <div></div>
     <div id="spreadsheet" class="ex"></div>
-    <script>
-        loader = document.getElementsByClassName('loader')
-
-        async function getJson(url){
-            try{
-                const response = await axios.get(url)
-                loader[0].className = 'loader hidden'
-                numID = response.data
-                return response.data
-            }catch(e){
-                console.log(e)
-            }
-        }
-        async function myTablefunction(){
-            //document.getElementById('spreadsheet').innerHTML='' // clear table 
-            myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
-            data: await getJson('/data/rangeGet'),
-            search:true,
-            tableWidth:"1300px",
-            pagination:20,
-            tableOverflow:true,
-            rowResize:true,
-            defaultColAlign:'left',
-            allowInsertColumn:false,
-            allowManualInsertColumn:false,
-            allowDeleteColumn:false,
-            wordWrap:true,
-            allowRenameColumn:false,
-            columns: [
-                { title:'Unit Ref. & date', type:'text', width:120, wordWrap: true},
-                { title:'Bill of Entry No.', type:'text', width:120, wordWrap: true},
-                { title: 'Customs Station of import', type:'text', width:150 }, //{ title:'Date', width:100, type:'calendar', options: { format:'DD/MM/YYYY' } },
-                { title: 'Code warehouse', type:'text', width:120 },
-                { title: 'EoU Name Addr', type:'text', width:100 },
-                { title: 'Others', type:'text', width:100 },
-                { title: 'B-17 Bond Amt', type:'text', width:100 },
-                { title: 'Description goods', type:'text', width:100 },
-                { title: 'Invoice No.', type:'text', width:100 },
-                { title: 'Proc Cert No./date', type:'text', width:100 },
-                { title: 'Unit,weight & quantity', type:'text', width:100 },
-                { title: 'Value', type:'text', width:100 },
-                { title: 'Duty assessed', type:'text', width:100 },
-                { title: 'Reg. no. means of transport', type:'text', width:100 },
-                { title: 'Date & time of receipt', type:'text', width:100 },
-                { title: 'Date and time of removal', type:'text', width:100 },
-                { title: 'Quantity cleared', type:'text', width:100 },
-                { title: 'Value', type:'text', width:100 },
-                { title: 'Duty involved', type:'text', width:100 },
-                { title: ' ', type:'text', width:100 },
-                { title: 'Purpose of removal', type:'text', width:100 },
-                { title: 'Date & Time', type:'text', width:100 },
-                { title: 'Quantity', type:'text', width:100 },
-                { title: 'Value', type:'text', width:100 },
-                { title: 'Duty', type:'text', width:100 },
-                { title: 'Details of document', type:'text', width:100 },
-                { title: 'Purpose of return', type:'text', width:100 },
-                { title: 'Date & time', type:'text', width:100 },
-                { title: 'Quantity', type:'text', width:100 },
-                { title: 'Value', type:'text', width:100 },
-                { title: 'Duty involved', type:'text', width:100 },
-                { title: 'Details', type:'text', width:100 },
-                { title: 'Quantity', type:'text', width:100 },
-                { title: 'Value', type:'text', width:100 },
-                { title: ' ', type:'text', width:100 }
-            ],
-            nestedHeaders:[
-                [
-                    { title:' ',colspan:2 }, { title:'Receipts', colspan:12 }, {title:'Removal of processing', colspan: 4},{title:'Remarks', colspan:1},
-                    {title:'Other removals', colspan:6}, {title:'Returns to unit', colspan:6}, {title:'Balance in stock',colspan:2},{title:'Remarks',colspan:1}
-                ]
-                    
-            ]
-        })
-    }
-
-    myTablefunction()
-
-    //PDF button, go to PDF page
-    function goToPDF(){
-        location.replace('/data/pdf')
-    }
-    </script>
+    <script src="/js/app.js" url='/data/rangeGet'></script>
  </body>
 </div>
 </html>
