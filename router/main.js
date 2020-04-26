@@ -2,6 +2,7 @@ const express = require('express')
 const FormData = require('../models/formdata')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const cache = require('../middleware/cache')
 const User = require('../models/user')
 
 //go to range page
@@ -46,7 +47,7 @@ router.get('/data/rangeGet',auth, async(req,res)=>{
 )
 
 //new index page
-router.get('', auth, async (req,res)=>{
+router.get('', [auth,cache], async (req,res)=>{
     let curYear = (new Date()).getFullYear()
     filterData = await FormData.find({ // fetch files for the current year
         period:{

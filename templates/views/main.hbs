@@ -19,27 +19,11 @@
     <button onclick="goToPDF()" id="pdf">PDF</button>
     <div></div>
     <div id="spreadsheet" class="ex"></div>
+    <script src="/js/app.js"></script>
 
     <script>
-        loader = document.getElementsByClassName('loader')
-
-        async function getJson(url){
-            try{
-                const response = await axios.get(url)
-                numID = response.data._id
-
-                //loading screen hide
-                loader[0].className = 'loader hidden'
-
-                return response.data.dataObject
-            }catch(e){
-                console.log(e)
-            }
-        }
-        
         
         async function myTablefunction(){
-            //document.getElementById('spreadsheet').innerHTML='' // clear table 
             myTable = jexcel(document.getElementById('spreadsheet'),{//myTable needs to be global
             data: await getJson('/data/fetch/{{date}}'),
             search:true,
