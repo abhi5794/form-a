@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser')
 // error when not connected to internet
 // set up error page
 // create test scripts
+// error when not connected to internet
+// browserify/jexcel installed
 
 require('../db/mongoose')
 
