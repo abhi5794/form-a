@@ -1,11 +1,7 @@
 <html>
     <title>Form A PDF generator</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://bossanova.uk/jexcel/v4/jexcel.js"></script>
-    <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://bossanova.uk/jexcel/v3/jexcel.css" type="text/css" />
-    <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
     {{>navbar}}
     <div style="padding:30px;margin-top:40px;">
         <div class="loader">
@@ -13,11 +9,11 @@
         </div>
     <body>
     <h1>Form-A Generator : Entry workbench</h1>
-    <button onclick="saveData()">Save</button>
-    <button onclick="goToPDF()" id="pdf">PDF</button>
+    <button id="save">Save</button>
+    <button id="pdf">PDF</button>
     <div></div>
     <div id="spreadsheet" class="ex"></div>
-    <script src="/js/app.js" url='/data/fetch/{{date}}'></script>
+    <script src="/js/bundle.js" url='/data/fetch/{{date}}'></script>
     </body>
     </div>
 </html>

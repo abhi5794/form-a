@@ -1,6 +1,35 @@
 loader = document.getElementsByClassName('loader')
 let dateUrl = document.currentScript.getAttribute('url')
 
+const save = document.getElementById('save')
+if(save){
+    save.onclick = ()=>{saveData()}
+    async function saveData(){
+        loader[0].className = 'loader'
+        try{
+            await axios({
+                method:'patch',
+                url:'/data/save/'+numID,
+                data: myTable.getJson()
+            })
+            loader[0].className = 'loader hidden'
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+
+const pdf = document.getElementById('pdf')
+pdf.onclick = ()=>{goToPDF()}
+
+function goToPDF(){
+    location.replace('/data/pdf')
+}
+
+
+const jexcel = require('jexcel')
+require('./vendor.css')
+
 async function getJson(url){
     try{
         const response = await axios.get(url)
@@ -75,20 +104,3 @@ async function myTablefunction(){
 
 myTablefunction()
 
-async function saveData(){
-    loader[0].className = 'loader'
-    try{
-        await axios({
-            method:'patch',
-            url:'/data/save/'+numID,
-            data: myTable.getJson()
-        })
-        loader[0].className = 'loader hidden'
-    }catch(e){
-        console.log(e)
-    }
-}
-
-function goToPDF(){
-    location.replace('/data/pdf')
-}
