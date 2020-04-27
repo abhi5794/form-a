@@ -79,7 +79,6 @@
                     let dateParsed = dateInputString.split(',').map((x)=>parseInt(x))
                     let period = new Date(dateParsed[0],dateParsed[1])
                     const response = await axios.get(url)
-                    console.log(response)
                     if(response.data==='no data found'){
                         alert('No data found, entry will be created')
                         axios({
