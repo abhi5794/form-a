@@ -5,11 +5,10 @@ bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 //To-do
 
-// error when not connected to internet
+// enable caching
 // set up error page
 // create test scripts
-// error when not connected to internet
-// browserify/jexcel installed
+
 
 require('../db/mongoose')
 
