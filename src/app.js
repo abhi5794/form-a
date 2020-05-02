@@ -5,7 +5,6 @@ bodyParser = require('body-parser') //to parse incoming request
 const cookieParser = require('cookie-parser')
 //To-do
 
-// set up error page
 // create test scripts
 
 
