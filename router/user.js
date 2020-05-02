@@ -55,7 +55,9 @@ router.post('/users/login',express.urlencoded({extended:false}), async(req,res)=
         //res.send({user,token})
         res.redirect('/')
     }catch(e){
-        res.status(400).send('Unable to find user, please try again')
+        res.render('error',{
+            'message':'404 : Unable to find user, please try again'
+        })
     }
 },(error, req, res, next)=>{
     res.status(400).send({error:error})
