@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: muringayil-forma.herokuapp.com
+Token: 6d13a3f0d9a88db90f545eec7b81496e498ad0ebf0543786332f8ace29b2c57a
